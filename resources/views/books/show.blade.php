@@ -1,23 +1,48 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Book Details</title>
-</head>
-<body>
+@extends('layouts.app')
 
-    <h1>{{ $item['title'] }}</h1>
+@section('title', $item['title'])
 
-    <p><strong>ID:</strong> {{ $item['id'] }}</p>
-    <p><strong>Title:</strong> {{ $item['title'] }}</p>
-    <p><strong>Author:</strong> {{ $item['author'] }}</p>
-    <p><strong>Genre:</strong> {{ $item['genre'] }}</p>
-    <p><strong>Year:</strong> {{ $item['year'] }}</p>
+@section('content')
 
-    <p>Created by: Rosalio Oclo</p>
+    <div class="card shadow-sm">
 
-    <a href="{{ route('books.index') }}">
-        Back to Book List
-    </a>
+        <div class="card-body">
 
-</body>
-</html>
+            <h2 class="card-title mb-4">
+                {{ $item['title'] }}
+            </h2>
+
+            <p>
+                <strong>ID:</strong>
+                {{ $item['id'] }}
+            </p>
+
+            <p>
+                <strong>Title:</strong>
+                {{ $item['title'] }}
+            </p>
+
+            <p>
+                <strong>Author:</strong>
+                {{ $item['author'] }}
+            </p>
+
+            <p>
+                <strong>Genre:</strong>
+                {{ $item['genre'] }}
+            </p>
+
+            <p>
+                <strong>Year:</strong>
+                {{ $item['year'] }}
+            </p>
+
+            <a href="{{ route('books.index') }}" class="btn btn-primary">
+                Back to Book List
+            </a>
+
+        </div>
+
+    </div>
+
+@endsection

@@ -1,54 +1,71 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Book Filter</title>
-</head>
-<body>
+@extends('layouts.app')
 
-    <h1>Book Collection</h1>
+@section('title', 'Book Filter')
 
-    <h2>Active Filter: {{ $activeFilter }}</h2>
+@section('content')
 
-    @if (count($books) > 0)
+    <div class="card shadow-sm">
 
-        <table border="1" cellpadding="10">
-            <tr>
-                <th>ID</th>
-                <th>Title</th>
-                <th>Author</th>
-                <th>Genre</th>
-                <th>Year</th>
-            </tr>
+        <div class="card-body">
 
-            @foreach ($books as $item)
-                <tr>
-                    <td>{{ $item['id'] }}</td>
+            <h2 class="card-title mb-4">
+                Book Filter
+            </h2>
 
-                    <td>
-                        <a href="{{ route('books.show', $item['id']) }}">
-                            {{ $item['title'] }}
-                        </a>
-                    </td>
+            <div class="alert alert-info">
+                <strong>Active Filter:</strong> {{ $activeFilter }}
+            </div>
 
-                    <td>{{ $item['author'] }}</td>
-                    <td>{{ $item['genre'] }}</td>
-                    <td>{{ $item['year'] }}</td>
-                </tr>
-            @endforeach
+            @forelse ($books as $item)
 
-        </table>
+                @if ($loop->first)
+                    <table class="table table-striped table-bordered">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>#</th>
+                                <th>Title</th>
+                                <th>Author</th>
+                                <th>Genre</th>
+                                <th>Year</th>
+                            </tr>
+                        </thead>
 
-    @else
+                        <tbody>
+                @endif
 
-        <p>No books found for this filter.</p>
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
 
-    @endif
+                                <td>
+                                    <a href="{{ route('books.show', $item['id']) }}">
+                                        {{ $item['title'] }}
+                                    </a>
+                                </td>
 
-    <br>
+                                <td>{{ $item['author'] }}</td>
+                                <td>{{ $item['genre'] }}</td>
+                                <td>{{ $item['year'] }}</td>
+                            </tr>
 
-    <a href="{{ route('books.index') }}">
-        Back to Book List
-    </a>
+                @if ($loop->last)
+                        </tbody>
+                    </table>
+                @endif
 
-</body>
-</html>
+            @empty
+
+                <div class="alert alert-warning">
+                    No books found for this filter.
+                </div>
+
+            @endforelse
+
+            <a href="{{ route('books.index') }}" class="btn btn-primary">
+                Back to Book List
+            </a>
+
+        </div>
+
+    </div>
+
+@endsection

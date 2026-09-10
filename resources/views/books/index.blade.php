@@ -1,52 +1,85 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Book Collection</title>
-</head>
-<body>
+@extends('layouts.app')
 
-    <h1>My Book Collection</h1>
+@section('title', 'Book Collection')
 
-    <p>Created by: Rosalio Oclo</p>
+@section('content')
 
-    <p>
-        <a href="{{ route('books.featured') }}">
-            ⭐ View Featured Book
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2>My Book Collection</h2>
+            <p class="text-muted">
+                Browse the books in the collection.
+            </p>
+        </div>
+
+        <a href="{{ route('books.featured') }}" class="btn btn-primary">
+            View Featured Book
         </a>
-    </p>
+    </div>
 
-    <p>
-        <a href="{{ route('books.filter') }}">
-            View All Books
-        </a>
-    </p>
+    <div class="card shadow-sm">
+        <div class="card-body">
 
-    <table border="1" cellpadding="10">
-        <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Genre</th>
-            <th>Year</th>
-        </tr>
+            <h3 class="card-title mb-3">All Books</h3>
 
-        @foreach ($books as $item)
-            <tr>
-                <td>{{ $item['id'] }}</td>
+            <table class="table table-striped table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Genre</th>
+                        <th>Year</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
 
-                <td>
-                    <a href="{{ route('books.show', $item['id']) }}">
-                        {{ $item['title'] }}
-                    </a>
-                </td>
+                <tbody>
 
-                <td>{{ $item['author'] }}</td>
-                <td>{{ $item['genre'] }}</td>
-                <td>{{ $item['year'] }}</td>
-            </tr>
-        @endforeach
+                    @forelse ($books as $item)
 
-    </table>
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
 
-</body>
-</html>
+                            <td>
+                                <a href="{{ route('books.show', $item['id']) }}">
+                                    {{ $item['title'] }}
+                                </a>
+                            </td>
+
+                            <td>{{ $item['author'] }}</td>
+
+                            <td>{{ $item['genre'] }}</td>
+
+                            <td>{{ $item['year'] }}</td>
+
+                            <td>
+                                @if ($item['year'] < 2000)
+                                    <span class="badge bg-secondary">
+                                        Classic
+                                    </span>
+                                @else
+                                    <span class="badge bg-success">
+                                        Modern
+                                    </span>
+                                @endif
+                            </td>
+                        </tr>
+
+                    @empty
+
+                        <tr>
+                            <td colspan="6" class="text-center">
+                                No books are available in the collection right now.
+                            </td>
+                        </tr>
+
+                    @endforelse
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+@endsection
