@@ -2,68 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+
 class BookController extends Controller
 {
-    public function index()
-    {
-        $books = $this->books();
-
-        return view('books.index', [
-            'books' => $books
-        ]);
-    }
-
-    public function show($id)
-    {
-        $books = $this->books();
-
-        if (!isset($books[$id])) {
-            abort(404);
-        }
-
-        $item = $books[$id];
-
-        return view('books.show', [
-            'item' => $item
-        ]);
-    }
-
-    public function featured()
-    {
-        $books = $this->books();
-
-        $item = $books[3];
-
-        return view('books.featured', [
-            'item' => $item
-        ]);
-    }
-
-    public function filter($value = null)
-    {
-        $books = $this->books();
-
-        if ($value === null) {
-            return view('books.filter', [
-                'books' => $books,
-                'activeFilter' => 'All'
-            ]);
-        }
-
-        $filtered = [];
-
-        foreach ($books as $item) {
-            if ($item['genre'] === $value) {
-                $filtered[] = $item;
-            }
-        }
-
-        return view('books.filter', [
-            'books' => $filtered,
-            'activeFilter' => $value
-        ]);
-    }
-
+    
     private function books()
     {
         return [
@@ -115,5 +58,72 @@ class BookController extends Controller
                 'year' => 1961,
             ],
         ];
+    }
+
+    public function index()
+    {
+          $books = $this->books();
+
+        return view('books.index' , [
+            'books' => $books
+        ]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+       $books = $this->books();
+
+        if (!isset($books[$id])) {
+            abort(404);
+        }
+
+        $item = $books[$id];
+
+        return view('books.show', [
+            'item' => $item
+        ]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
     }
 }
