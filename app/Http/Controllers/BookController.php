@@ -6,7 +6,31 @@ use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
-    
+    public function index(Request $request)
+    {
+        $books = $this->books();
+
+        $genre = $request->query('genre', 'all');
+        $author = $request->query('author', 'all');
+
+        $filtered = [];
+
+        foreach ($books as $item) {
+            $genreMatch = $genre === 'all' || $item['genre'] === $genre;
+            $authorMatch = $author === 'all' || $item['author'] === $author;
+
+            if ($genreMatch && $authorMatch) {
+                $filtered[] = $item;
+            }
+        }
+
+        return view('books.index', [
+            'books' => $filtered,
+            'genre' => $genre,
+            'author' => $author
+        ]);
+    }
+
     private function books()
     {
         return [
@@ -60,15 +84,6 @@ class BookController extends Controller
         ];
     }
 
-    public function index()
-    {
-          $books = $this->books();
-
-        return view('books.index' , [
-            'books' => $books
-        ]);
-    }
-
     /**
      * Show the form for creating a new resource.
      */
@@ -90,7 +105,7 @@ class BookController extends Controller
      */
     public function show(string $id)
     {
-       $books = $this->books();
+        $books = $this->books();
 
         if (!isset($books[$id])) {
             abort(404);

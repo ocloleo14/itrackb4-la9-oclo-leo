@@ -1,13 +1,13 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
     <div class="container">
 
-        <a class="navbar-brand" href="{{ route('books.index') }}">
+        <a class="navbar-brand {{ request()->is('books*') ? 'active' : '' }}" href="{{ route('books.index') }}">
             My Book Collection
         </a>
 
         <div class="navbar-nav">
 
-            <a class="nav-link" href="{{ route('books.index') }}">
+            <a class="nav-link {{ request()->is('books*') ? 'active' : '' }}" href="{{ route('books.index') }}">
                 All Books
             </a>
 
