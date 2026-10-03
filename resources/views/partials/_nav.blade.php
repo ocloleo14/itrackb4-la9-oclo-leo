@@ -11,6 +11,10 @@
                 All Books
             </a>
 
+            <a class="nav-link {{ request()->routeIs('books.create') ? 'active' : '' }}" href="{{ route('books.create') }}">
+                Add Book
+            </a>
+
             <a class="nav-link" href="{{ route('books.featured') }}">
                 Featured Book
             </a>

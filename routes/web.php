@@ -21,4 +21,4 @@ Route::get('/books/filter/{value?}', function ($value = null) {
 })->name('books.filter');
 
 Route::resource('books', BookController::class)
-    ->only(['index', 'show']);
+    ->only(['index', 'create', 'store', 'show']);

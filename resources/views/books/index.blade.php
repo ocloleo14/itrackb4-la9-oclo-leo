@@ -12,9 +12,15 @@
             </p>
         </div>
 
-        <a href="{{ route('books.featured') }}" class="btn btn-primary">
-            View Featured Book
-        </a>
+        <div>
+            <a href="{{ route('books.create') }}" class="btn btn-success">
+                Add Book
+            </a>
+
+            <a href="{{ route('books.featured') }}" class="btn btn-primary">
+                View Featured Book
+            </a>
+        </div>
     </div>
 
     <div class="card shadow-sm">
